@@ -1,0 +1,30 @@
+[package]
+name = "charmed"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+deno_core = { version = "0.232", optional = true }
+handlebars = { version = "4.3", optional = true }
+image = { version = "0.24", optional = true }
+resvg = { version = "0.36", optional = true }
+serde = { version = "1.0", features = ["derive"] }
+serde-wasm-bindgen = { version = "0.6", optional = true }
+serde_json = "1.0"
+serde_v8 = { version = "0.141", optional = true }
+wasm-bindgen = { version = "0.2", optional = true }
+
+[dependencies.web-sys]
+version = "0.3.64"
+optional = true
+features = ["Window", "Document", "Element"]
+
+[features]
+default = ["html"]
+html = ["handlebars"]
+ssr = ["html", "deno_core", "image", "resvg", "serde_v8"]
+wasm = ["serde-wasm-bindgen", "wasm-bindgen", "web-sys"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
